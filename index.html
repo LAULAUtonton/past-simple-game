@@ -224,7 +224,7 @@
     </div>
 
     <div class="btn-row">
-      <button class="primary" id="startBtn">Start Practice</button>
+      <button class="primary" id="startBtn" onclick="startGame()">Start Practice</button>
     </div>
   </div>
 
@@ -245,14 +245,14 @@
       <div class="small">Tap the words in the correct order.</div>
       <div class="word-bank" id="wordBank"></div>
       <div class="btn-row">
-        <button class="secondary" id="checkOrderBtn">Check Order</button>
-        <button class="choice" id="clearOrderBtn">Clear</button>
+        <button class="secondary" id="checkOrderBtn" onclick="checkOrderAnswer()">Check Order</button>
+        <button class="choice" id="clearOrderBtn" onclick="resetOrderAnswer()">Clear</button>
       </div>
     </div>
 
     <div class="feedback" id="feedback"></div>
     <div class="btn-row">
-      <button class="secondary hidden" id="nextBtn">Next</button>
+      <button class="secondary hidden" id="nextBtn" onclick="goNext()">Next</button>
     </div>
   </div>
 
@@ -261,7 +261,7 @@
     <div class="final-score" id="finalScore"></div>
     <p id="finalMessage"></p>
     <div class="btn-row">
-      <button class="primary" id="restartBtn">Play Again</button>
+      <button class="primary" id="restartBtn" onclick="restartGame()">Play Again</button>
     </div>
   </div>
 
@@ -430,12 +430,6 @@
   const restartBtn = document.getElementById('restartBtn');
   const checkOrderBtn = document.getElementById('checkOrderBtn');
   const clearOrderBtn = document.getElementById('clearOrderBtn');
-
-  startBtn.addEventListener('click', startGame);
-  nextBtn.addEventListener('click', goNext);
-  restartBtn.addEventListener('click', restartGame);
-  checkOrderBtn.addEventListener('click', checkOrderAnswer);
-  clearOrderBtn.addEventListener('click', resetOrderAnswer);
 
   function startGame() {
     introCard.classList.add('hidden');
