@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Past Simple vs Past Continuous</title>
+
+<style>
+body {
+  font-family: Arial;
+  margin: 0;
+  background: #eef6ff;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 10px 15px;
+  margin: 5px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.primary { background: #2563eb; color: white; }
+.choice { background: #eee; }
+.correct { background: #a7f3d0; }
+.wrong { background: #fecaca; }
+
+.hidden { display: none; }
+
+iframe {
+  width: 100%;
+  height: 300px;
+  border-radius: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- INTRO -->
+<div class="card" id="intro">
+  <h1>Past Simple vs Past Continuous</h1>
+
+  <p><strong>Rule:</strong> Long action = was/were + ing | Short action = past simple</p>
+
+  <!-- YOUTUBE -->
+  <iframe src="https://www.youtube.com/embed/nFQ7_LhVtv4" allowfullscreen></iframe>
+
+  <p><a href="https://www.youtube.com/watch?v=nFQ7_LhVtv4" target="_blank">Open video</a></p>
+
+  <!-- COMIC -->
+  <p><strong>Example:</strong></p>
+  <img src="https://i.imgur.com/ulbC2XO.png" width="100%">
+
+  <p>He was watching TV when the phone rang.</p>
+
+  <button class="primary" onclick="startGame()">Start Game</button>
+</div>
+
+<!-- GAME -->
+<div class="card hidden" id="game">
+  <h2 id="question"></h2>
+  <div id="answers"></div>
+  <p id="feedback"></p>
+  <button class="primary hidden" id="next" onclick="next()">Next</button>
+</div>
+
+<!-- END -->
+<div class="card hidden" id="end">
+  <h2>Finished!</h2>
+  <h1 id="score"></h1>
+  <button onclick="restart()">Restart</button>
+</div>
+
+</div>
+
+<script>
+
+const questions = [
+  {
+    q: "I ______ dinner when the phone rang.",
+    a: ["cooked", "was cooking"],
+    correct: "was cooking"
+  },
+  {
+    q: "She ______ the window because she was cold.",
+    a: ["closed", "was closing"],
+    correct: "closed"
+  },
+  {
+    q: "We ______ football when it started to rain.",
+    a: ["played", "were playing"],
+    correct: "were playing"
+  },
+  {
+    q: "He was sleeping when the alarm ______.",
+    a: ["rang", "was ringing"],
+    correct: "rang"
+  }
+];
+
+let i = 0;
+let score = 0;
+
+function startGame() {
+  document.getElementById("intro").classList.add("hidden");
+  document.getElementById("game").classList.remove("hidden");
+  showQuestion();
+}
+
+function showQuestion() {
+  let q = questions[i];
+  document.getElementById("question").textContent = q.q;
+  let answersDiv = document.getElementById("answers");
+  answersDiv.innerHTML = "";
+  document.getElementById("feedback").textContent = "";
+  document.getElementById("next").classList.add("hidden");
+
+  q.a.forEach(choice => {
+    let btn = document.createElement("button");
+    btn.textContent = choice;
+    btn.className = "choice";
+    btn.onclick = () => check(choice, btn);
+    answersDiv.appendChild(btn);
+  });
+}
+
+function check(choice, btn) {
+  let q = questions[i];
+  let buttons = document.querySelectorAll(".choice");
+
+  buttons.forEach(b => b.disabled = true);
+
+  if (choice === q.correct) {
+    btn.classList.add("correct");
+    score++;
+    document.getElementById("feedback").textContent = "Correct!";
+  } else {
+    btn.classList.add("wrong");
+    document.getElementById("feedback").textContent = "Wrong!";
+  }
+
+  document.getElementById("next").classList.remove("hidden");
+}
+
+function next() {
+  i++;
+  if (i < questions.length) {
+    showQuestion();
+  } else {
+    endGame();
+  }
+}
+
+function endGame() {
+  document.getElementById("game").classList.add("hidden");
+  document.getElementById("end").classList.remove("hidden");
+  document.getElementById("score").textContent = score + " / " + questions.length;
+}
+
+function restart() {
+  i = 0;
+  score = 0;
+  document.getElementById("end").classList.add("hidden");
+  document.getElementById("game").classList.remove("hidden");
+  showQuestion();
+}
+
+</script>
+
+</body>
+</html>
