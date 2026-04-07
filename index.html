@@ -1,236 +1,632 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Past Simple vs Past Continuous</title>
-
-<style>
-body { font-family: Arial; margin:0; background:#eef6ff;}
-.container { max-width:1000px; margin:auto; padding:20px;}
-.card { background:white; padding:20px; border-radius:15px; margin-bottom:20px;}
-button { padding:10px 15px; margin:5px; border:none; border-radius:10px; cursor:pointer;}
-.primary { background:#2563eb; color:white;}
-.choice { background:#eee;}
-.correct { background:#a7f3d0;}
-.wrong { background:#fecaca;}
-.hidden { display:none;}
-iframe { width:100%; height:300px;}
-.word { background:#ddd; margin:5px; padding:8px 12px; border-radius:10px; cursor:pointer;}
-.built { min-height:60px; border:2px dashed #999; padding:10px; margin:10px 0;}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Past Simple vs Past Continuous</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      background: linear-gradient(135deg, #eef6ff, #fdf2ff);
+      color: #1f2937;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      padding: 22px;
+      border-radius: 18px;
+      margin-bottom: 20px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+    }
+    h1, h2, h3 { margin-top: 0; }
+    .subtitle { color: #4b5563; }
+    .tip {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 14px;
+      font-weight: 700;
+      margin: 16px 0;
+    }
+    .teacher-note {
+      background: #fff7ed;
+      border: 2px solid #fdba74;
+      border-radius: 14px;
+      padding: 14px;
+      margin-top: 16px;
+    }
+    iframe {
+      width: 100%;
+      height: 320px;
+      border: 0;
+      border-radius: 14px;
+      background: #111827;
+    }
+    .comic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .comic-card {
+      background: #f9fafb;
+      border: 2px solid #e5e7eb;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .comic-card img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      display: block;
+    }
+    .comic-card p {
+      margin: 0;
+      padding: 10px 12px;
+      font-weight: 700;
+    }
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .pill {
+      background: #eff6ff;
+      color: #1d4ed8;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+    .sentence {
+      font-size: 1.45rem;
+      margin: 18px 0 10px;
+      line-height: 1.5;
+    }
+    .instruction {
+      color: #6b7280;
+      margin-bottom: 12px;
+    }
+    .btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    button, .link-btn {
+      border: none;
+      border-radius: 12px;
+      padding: 11px 16px;
+      cursor: pointer;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .primary { background: #2563eb; color: white; }
+    .secondary { background: #111827; color: white; }
+    .choice {
+      background: #f3f4f6;
+      color: #111827;
+      border: 2px solid #d1d5db;
+    }
+    .choice.correct {
+      background: #dcfce7;
+      border-color: #22c55e;
+    }
+    .choice.wrong {
+      background: #fee2e2;
+      border-color: #ef4444;
+    }
+    .hidden { display: none; }
+    .feedback {
+      min-height: 28px;
+      font-weight: 700;
+      margin-top: 14px;
+    }
+    .correct-text { color: #15803d; }
+    .wrong-text { color: #b91c1c; }
+    .order-area {
+      margin-top: 12px;
+    }
+    .built {
+      min-height: 66px;
+      border: 2px dashed #94a3b8;
+      background: #f8fafc;
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .word-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .word-btn {
+      background: #ede9fe;
+      color: #4c1d95;
+      border: 2px solid #c4b5fd;
+    }
+    .token {
+      background: #dbeafe;
+      color: #1e3a8a;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+    .small { color: #64748b; font-size: 0.95rem; }
+    .final-score {
+      font-size: 2rem;
+      font-weight: 800;
+      margin: 12px 0;
+    }
+    @media (max-width: 640px) {
+      iframe { height: 220px; }
+      .sentence { font-size: 1.2rem; }
+      .container { padding: 14px; }
+      .card { padding: 18px; }
+    }
+  </style>
 </head>
-
 <body>
 <div class="container">
 
-<!-- INTRO -->
-<div class="card" id="intro">
-<h1>Past Simple vs Past Continuous</h1>
+  <div class="card" id="introCard">
+    <h1>Past Simple vs Past Continuous</h1>
+    <p class="subtitle">Watch first, then play a stronger click-only practice game.</p>
 
-<p><b>Rule:</b> Long action = was/were + ing | Short action = past simple</p>
+    <div class="tip">
+      Background / longer action = <strong>Past Continuous</strong><br>
+      Main / interrupting action = <strong>Past Simple</strong>
+    </div>
 
-<iframe src="https://www.youtube.com/embed/nFQ7_LhVtv4" allowfullscreen></iframe>
+    <h2>1. Watch</h2>
+    <iframe
+      src="https://www.youtube.com/embed/nFQ7_LhVtv4?rel=0"
+      title="Past Simple vs Past Continuous video"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen>
+    ></iframe>
 
-<p><a href="https://www.youtube.com/watch?v=nFQ7_LhVtv4" target="_blank">Open video</a></p>
+    <div class="btn-row">
+      <a class="link-btn secondary" href="https://www.youtube.com/watch?v=nFQ7_LhVtv4" target="_blank" rel="noopener noreferrer">Open on YouTube</a>
+    </div>
 
-<img src="https://i.imgur.com/ulbC2XO.png" width="100%">
-<p>He was watching TV when the phone rang.</p>
+    <h2>2. Look and say</h2>
+    <div class="comic-grid">
+      <div class="comic-card">
+        <img src="https://i.imgur.com/ulbC2XO.png" alt="Watching TV and phone ringing">
+        <p>He was watching TV when the phone rang.</p>
+      </div>
+      <div class="comic-card">
+        <img src="https://i.pinimg.com/736x/4d/4b/ce/4d4bce94f53fc8595a32eaaf3401b960.jpg" alt="Walking and rain starting">
+        <p>She was walking when it started to rain.</p>
+      </div>
+      <div class="comic-card">
+        <img src="https://images.cartoonstock.com/lowres/law-order-snooze-snooze_button-alarm-alarm_clock-morning_alarm-CS566252_low.jpg" alt="Sleeping and alarm ringing">
+        <p>He was sleeping when the alarm rang.</p>
+      </div>
+    </div>
 
-<button class="primary" onclick="startGame()">Start</button>
-</div>
+    <div class="teacher-note">
+      No typing. Students only click answers, build sentences, and move with <strong>Next</strong>.
+    </div>
 
-<!-- GAME -->
-<div class="card hidden" id="game">
-<h3 id="round"></h3>
-<h2 id="question"></h2>
+    <div class="btn-row">
+      <button class="primary" id="startBtn">Start Practice</button>
+    </div>
+  </div>
 
-<div id="choices"></div>
+  <div class="card hidden" id="gameCard">
+    <div class="topbar">
+      <div class="pill" id="roundLabel">Round 1</div>
+      <div class="pill" id="scoreLabel">Score: 0</div>
+      <div class="pill" id="questionLabel">Question 1</div>
+    </div>
 
-<div id="orderArea" class="hidden">
-<div class="built" id="built"></div>
-<div id="words"></div>
-<button onclick="checkOrder()">Check</button>
-</div>
+    <div class="sentence" id="questionText"></div>
+    <div class="instruction" id="instructionText"></div>
 
-<p id="feedback"></p>
-<button class="primary hidden" id="next" onclick="next()">Next</button>
-</div>
+    <div id="choices" class="btn-row"></div>
 
-<!-- END -->
-<div class="card hidden" id="end">
-<h2>Finished</h2>
-<h1 id="score"></h1>
-<button onclick="restart()">Restart</button>
-</div>
+    <div id="orderArea" class="order-area hidden">
+      <div class="built" id="builtSentence">Your sentence will appear here.</div>
+      <div class="small">Tap the words in the correct order.</div>
+      <div class="word-bank" id="wordBank"></div>
+      <div class="btn-row">
+        <button class="secondary" id="checkOrderBtn">Check Order</button>
+        <button class="choice" id="clearOrderBtn">Clear</button>
+      </div>
+    </div>
+
+    <div class="feedback" id="feedback"></div>
+    <div class="btn-row">
+      <button class="secondary hidden" id="nextBtn">Next</button>
+    </div>
+  </div>
+
+  <div class="card hidden" id="endCard">
+    <h2>Game Over 🎉</h2>
+    <div class="final-score" id="finalScore"></div>
+    <p id="finalMessage"></p>
+    <div class="btn-row">
+      <button class="primary" id="restartBtn">Play Again</button>
+    </div>
+  </div>
 
 </div>
 
 <script>
+  const rounds = [
+    {
+      name: 'Round 1: Choose the correct tense',
+      type: 'multiple',
+      instruction: 'Pick the best verb form.',
+      items: [
+        {
+          question: 'I ______ dinner when the phone rang.',
+          choices: ['cooked', 'was cooking'],
+          answer: 'was cooking',
+          explanation: 'Cooking was the longer background action.'
+        },
+        {
+          question: 'They ______ in the park when it started to rain.',
+          choices: ['played', 'were playing'],
+          answer: 'were playing',
+          explanation: 'The action in progress uses past continuous.'
+        },
+        {
+          question: 'She was driving when she ______ a strange noise.',
+          choices: ['heard', 'was hearing'],
+          answer: 'heard',
+          explanation: 'The interrupting event uses past simple.'
+        },
+        {
+          question: 'We ______ TV when the lights went out.',
+          choices: ['watched', 'were watching'],
+          answer: 'were watching',
+          explanation: 'Watching TV was already happening.'
+        }
+      ]
+    },
+    {
+      name: 'Round 2: Which sentence is correct?',
+      type: 'multiple',
+      instruction: 'Choose the correct full sentence.',
+      items: [
+        {
+          question: 'Which one is correct?',
+          choices: [
+            'He was sleeping when the alarm rang.',
+            'He slept when the alarm was ringing.'
+          ],
+          answer: 'He was sleeping when the alarm rang.',
+          explanation: 'Sleeping is the background action; the alarm is the interrupting action.'
+        },
+        {
+          question: 'Which one is correct?',
+          choices: [
+            'I was walking home when I saw my teacher.',
+            'I walked home when I was seeing my teacher.'
+          ],
+          answer: 'I was walking home when I saw my teacher.',
+          explanation: 'Walking was in progress; seeing happened at that moment.'
+        },
+        {
+          question: 'Which one is correct?',
+          choices: [
+            'They were doing homework when their friends arrived.',
+            'They did homework when their friends were arriving.'
+          ],
+          answer: 'They were doing homework when their friends arrived.',
+          explanation: 'Homework is the longer action in progress.'
+        },
+        {
+          question: 'Which one is correct?',
+          choices: [
+            'She was taking a shower when the phone rang.',
+            'She took a shower when the phone was ringing.'
+          ],
+          answer: 'She was taking a shower when the phone rang.',
+          explanation: 'Taking a shower is the background action.'
+        }
+      ]
+    },
+    {
+      name: 'Round 3: Put the words in order',
+      type: 'order',
+      instruction: 'Build the sentence in the correct order.',
+      items: [
+        {
+          question: 'Make a correct sentence:',
+          words: ['I', 'was', 'cooking', 'when', 'the', 'phone', 'rang'],
+          answer: 'I was cooking when the phone rang',
+          explanation: 'Use past continuous first, then the interrupting action in past simple.'
+        },
+        {
+          question: 'Make a correct sentence:',
+          words: ['they', 'were', 'playing', 'football', 'when', 'it', 'started', 'to', 'rain'],
+          answer: 'they were playing football when it started to rain',
+          explanation: 'The action in progress goes before the interrupting event.'
+        },
+        {
+          question: 'Make a correct sentence:',
+          words: ['I', 'was', 'walking', 'home', 'when', 'I', 'saw', 'my', 'friend'],
+          answer: 'I was walking home when I saw my friend',
+          explanation: 'Keep the longer action together and then add the short action.'
+        }
+      ]
+    },
+    {
+      name: 'Round 4: Choose the best story sentence',
+      type: 'multiple',
+      instruction: 'Pick the sentence that sounds right in a story.',
+      items: [
+        {
+          question: 'Which sentence fits a story best?',
+          choices: [
+            'We were waiting for the bus when it finally arrived.',
+            'We waited for the bus when it was finally arriving.'
+          ],
+          answer: 'We were waiting for the bus when it finally arrived.',
+          explanation: 'Waiting is the background action and arrived is the short event.'
+        },
+        {
+          question: 'Which sentence fits a story best?',
+          choices: [
+            'My mum was talking on the phone when the cat jumped onto the table.',
+            'My mum talked on the phone when the cat was jumping onto the table.'
+          ],
+          answer: 'My mum was talking on the phone when the cat jumped onto the table.',
+          explanation: 'Talking was in progress; the jump happened suddenly.'
+        },
+        {
+          question: 'Which sentence fits a story best?',
+          choices: [
+            'I was studying when the lights went out.',
+            'I studied when the lights were going out.'
+          ],
+          answer: 'I was studying when the lights went out.',
+          explanation: 'Studying is the ongoing action.'
+        }
+      ]
+    }
+  ];
 
-const rounds = [
+  let currentRound = 0;
+  let currentQuestion = 0;
+  let score = 0;
+  let answered = false;
+  let selectedOrderWords = [];
 
-{
-name:"Round 1",
-type:"choice",
-data:[
-{q:"I ___ dinner when the phone rang.", a:["cooked","was cooking"], c:"was cooking"},
-{q:"We ___ football when it started to rain.", a:["played","were playing"], c:"were playing"}
-]
-},
+  const introCard = document.getElementById('introCard');
+  const gameCard = document.getElementById('gameCard');
+  const endCard = document.getElementById('endCard');
+  const roundLabel = document.getElementById('roundLabel');
+  const scoreLabel = document.getElementById('scoreLabel');
+  const questionLabel = document.getElementById('questionLabel');
+  const questionText = document.getElementById('questionText');
+  const instructionText = document.getElementById('instructionText');
+  const choices = document.getElementById('choices');
+  const orderArea = document.getElementById('orderArea');
+  const builtSentence = document.getElementById('builtSentence');
+  const wordBank = document.getElementById('wordBank');
+  const feedback = document.getElementById('feedback');
+  const nextBtn = document.getElementById('nextBtn');
+  const finalScore = document.getElementById('finalScore');
+  const finalMessage = document.getElementById('finalMessage');
+  const startBtn = document.getElementById('startBtn');
+  const restartBtn = document.getElementById('restartBtn');
+  const checkOrderBtn = document.getElementById('checkOrderBtn');
+  const clearOrderBtn = document.getElementById('clearOrderBtn');
 
-{
-name:"Round 2",
-type:"choice",
-data:[
-{q:"Correct?", a:["He was sleeping when alarm rang","He slept when alarm was ringing"], c:"He was sleeping when alarm rang"},
-{q:"Correct?", a:["I was walking when I saw him","I walked when I was seeing him"], c:"I was walking when I saw him"}
-]
-},
+  startBtn.addEventListener('click', startGame);
+  nextBtn.addEventListener('click', goNext);
+  restartBtn.addEventListener('click', restartGame);
+  checkOrderBtn.addEventListener('click', checkOrderAnswer);
+  clearOrderBtn.addEventListener('click', resetOrderAnswer);
 
-{
-name:"Round 3",
-type:"order",
-data:[
-{q:"Order:", words:["I","was","cooking","when","phone","rang"], answer:"I was cooking when phone rang"},
-{q:"Order:", words:["they","were","playing","when","it","started"], answer:"they were playing when it started"}
-]
-}
+  function startGame() {
+    introCard.classList.add('hidden');
+    endCard.classList.add('hidden');
+    gameCard.classList.remove('hidden');
+    loadQuestion();
+  }
 
-];
+  function loadQuestion() {
+    answered = false;
+    selectedOrderWords = [];
 
-let r=0,q=0,score=0,selected=[];
+    const round = rounds[currentRound];
+    const item = round.items[currentQuestion];
 
-function startGame(){
-intro.classList.add("hidden");
-game.classList.remove("hidden");
-load();
-}
+    roundLabel.textContent = round.name;
+    scoreLabel.textContent = `Score: ${score}`;
+    questionLabel.textContent = `Question ${currentQuestion + 1}`;
+    questionText.textContent = item.question;
+    instructionText.textContent = round.instruction;
+    feedback.textContent = '';
+    feedback.className = 'feedback';
+    nextBtn.classList.add('hidden');
+    nextBtn.textContent = isLastQuestion() ? 'Finish' : 'Next';
 
-function load(){
-let item=rounds[r].data[q];
-round.textContent=rounds[r].name;
-question.textContent=item.q;
-feedback.textContent="";
-nextBtn.classList.add("hidden");
+    choices.innerHTML = '';
+    orderArea.classList.add('hidden');
+    builtSentence.textContent = 'Your sentence will appear here.';
+    wordBank.innerHTML = '';
 
-choices.innerHTML="";
-orderArea.classList.add("hidden");
-selected=[];
+    if (round.type === 'multiple') {
+      item.choices.forEach(choice => {
+        const btn = document.createElement('button');
+        btn.className = 'choice';
+        btn.textContent = choice;
+        btn.addEventListener('click', () => checkAnswer(choice, btn));
+        choices.appendChild(btn);
+      });
+    } else if (round.type === 'order') {
+      orderArea.classList.remove('hidden');
+      renderOrderWords(item.words);
+    }
+  }
 
-if(rounds[r].type==="choice"){
-item.a.forEach(x=>{
-let b=document.createElement("button");
-b.textContent=x;
-b.className="choice";
-b.onclick=()=>check(x,b);
-choices.appendChild(b);
-});
-}
+  function checkAnswer(choice, buttonEl) {
+    if (answered) return;
+    answered = true;
 
-if(rounds[r].type==="order"){
-orderArea.classList.remove("hidden");
-words.innerHTML="";
-built.innerHTML="";
+    const item = rounds[currentRound].items[currentQuestion];
+    const buttons = choices.querySelectorAll('button');
 
-item.words.forEach(w=>{
-let b=document.createElement("span");
-b.textContent=w;
-b.className="word";
-b.onclick=()=>{
-selected.push(w);
-b.style.opacity=0.3;
-updateBuilt();
-};
-words.appendChild(b);
-});
-}
-}
+    buttons.forEach(btn => {
+      btn.disabled = true;
+      if (btn.textContent === item.answer) btn.classList.add('correct');
+    });
 
-function updateBuilt(){
-built.innerHTML=selected.join(" ");
-}
+    if (choice === item.answer) {
+      score++;
+      scoreLabel.textContent = `Score: ${score}`;
+      buttonEl.classList.add('correct');
+      showFeedback(true, item.explanation);
+    } else {
+      buttonEl.classList.add('wrong');
+      showFeedback(false, `${item.explanation} Correct answer: ${item.answer}`);
+    }
 
-function check(choice,btn){
-let item=rounds[r].data[q];
-document.querySelectorAll(".choice").forEach(b=>b.disabled=true);
+    nextBtn.textContent = isLastQuestion() ? 'Finish' : 'Next';
+    nextBtn.classList.remove('hidden');
+  }
 
-if(choice===item.c){
-btn.classList.add("correct");
-score++;
-feedback.textContent="Correct!";
-}else{
-btn.classList.add("wrong");
-feedback.textContent="Wrong! Correct: "+item.c;
-}
+  function renderOrderWords(words) {
+    wordBank.innerHTML = '';
+    words.forEach(word => {
+      const btn = document.createElement('button');
+      btn.className = 'word-btn';
+      btn.textContent = word;
+      btn.addEventListener('click', () => addOrderWord(word, btn));
+      wordBank.appendChild(btn);
+    });
+  }
 
-showNext();
-}
+  function addOrderWord(word, btn) {
+    if (answered || btn.disabled) return;
+    selectedOrderWords.push(word);
+    btn.disabled = true;
+    btn.style.opacity = '0.5';
+    updateBuiltSentence();
+  }
 
-function checkOrder(){
-let item=rounds[r].data[q];
-let ans=selected.join(" ");
+  function updateBuiltSentence() {
+    builtSentence.innerHTML = '';
+    if (selectedOrderWords.length === 0) {
+      builtSentence.textContent = 'Your sentence will appear here.';
+      return;
+    }
+    selectedOrderWords.forEach(word => {
+      const token = document.createElement('span');
+      token.className = 'token';
+      token.textContent = word;
+      builtSentence.appendChild(token);
+    });
+  }
 
-if(ans===item.answer){
-score++;
-feedback.textContent="Correct!";
-}else{
-feedback.textContent="Wrong! "+item.answer;
-}
+  function normalize(text) {
+    return text.toLowerCase().replace(/[?.!,]/g, '').replace(/\s+/g, ' ').trim();
+  }
 
-showNext();
-}
+  function checkOrderAnswer() {
+    if (answered) return;
+    answered = true;
 
-function showNext(){
-next.classList.remove("hidden");
-if(r===rounds.length-1 && q===rounds[r].data.length-1){
-next.textContent="Finish";
-}
-}
+    const item = rounds[currentRound].items[currentQuestion];
+    const userSentence = normalize(selectedOrderWords.join(' '));
+    const correctSentence = normalize(item.answer);
 
-function next(){
-if(q<rounds[r].data.length-1){
-q++;
-}else if(r<rounds.length-1){
-r++; q=0;
-}else{
-endGame(); return;
-}
-load();
-}
+    if (userSentence === correctSentence) {
+      score++;
+      scoreLabel.textContent = `Score: ${score}`;
+      showFeedback(true, item.explanation);
+    } else {
+      showFeedback(false, `${item.explanation} Correct order: ${item.answer}.`);
+    }
 
-function endGame(){
-game.classList.add("hidden");
-end.classList.remove("hidden");
-scoreEl.textContent=score+"/"+total();
-}
+    wordBank.querySelectorAll('button').forEach(btn => btn.disabled = true);
+    nextBtn.textContent = isLastQuestion() ? 'Finish' : 'Next';
+    nextBtn.classList.remove('hidden');
+  }
 
-function total(){
-let t=0;
-rounds.forEach(r=>t+=r.data.length);
-return t;
-}
+  function resetOrderAnswer() {
+    if (answered) return;
+    selectedOrderWords = [];
+    builtSentence.textContent = 'Your sentence will appear here.';
+    const item = rounds[currentRound].items[currentQuestion];
+    renderOrderWords(item.words);
+  }
 
-function restart(){
-r=0;q=0;score=0;
-end.classList.add("hidden");
-intro.classList.remove("hidden");
-}
+  function showFeedback(isCorrect, text) {
+    feedback.textContent = isCorrect ? `✅ Correct! ${text}` : `❌ Not quite. ${text}`;
+    feedback.className = 'feedback';
+    feedback.classList.add(isCorrect ? 'correct-text' : 'wrong-text');
+  }
 
-const intro=document.getElementById("intro");
-const game=document.getElementById("game");
-const end=document.getElementById("end");
-const round=document.getElementById("round");
-const question=document.getElementById("question");
-const choices=document.getElementById("choices");
-const feedback=document.getElementById("feedback");
-const next=document.getElementById("next");
-const words=document.getElementById("words");
-const built=document.getElementById("built");
-const orderArea=document.getElementById("orderArea");
-const scoreEl=document.getElementById("score");
+  function goNext() {
+    const round = rounds[currentRound];
 
+    if (currentQuestion < round.items.length - 1) {
+      currentQuestion++;
+      loadQuestion();
+      return;
+    }
+
+    if (currentRound < rounds.length - 1) {
+      currentRound++;
+      currentQuestion = 0;
+      loadQuestion();
+      return;
+    }
+
+    endGame();
+  }
+
+  function isLastQuestion() {
+    return currentRound === rounds.length - 1 && currentQuestion === rounds[currentRound].items.length - 1;
+  }
+
+  function endGame() {
+    gameCard.classList.add('hidden');
+    endCard.classList.remove('hidden');
+
+    const totalQuestions = rounds.reduce((sum, round) => sum + round.items.length, 0);
+    finalScore.textContent = `${score} / ${totalQuestions} points`;
+
+    let message = 'Nice work!';
+    if (score === totalQuestions) message = 'Excellent! Your students really know the difference.';
+    else if (score >= Math.ceil(totalQuestions * 0.75)) message = 'Great job! They understand the main idea well.';
+    else if (score >= Math.ceil(totalQuestions * 0.5)) message = 'Good start! Review background action vs interrupting action.';
+    else message = 'Try again and focus on was/were + ing for the longer action.';
+
+    finalMessage.textContent = message;
+  }
+
+  function restartGame() {
+    currentRound = 0;
+    currentQuestion = 0;
+    score = 0;
+    answered = false;
+    selectedOrderWords = [];
+    endCard.classList.add('hidden');
+    introCard.classList.remove('hidden');
+    gameCard.classList.add('hidden');
+  }
 </script>
-
 </body>
 </html>
